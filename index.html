@@ -22,6 +22,7 @@
     </nav>
 
     <div class="container">
+        <!--form-->
         <div class="card">
             <div class="card-content">
                 <span class="card-title">Add Meal / Food Item</span>
@@ -36,13 +37,33 @@
                                 <label for="item-name">Calaries</label>
                             </div>
                             <button class="add-btn btn green darken-3"><i class="fa fa-plus"></i> Add Meal</button>
-                            <button class="update-btn btn orange"><i class="fa fa-pencil-square-o"></i> Update Meal</button>
-                            <button class="delete-btn btn red"><i class="fa fa-remove"></i> Delete Meal</button>
+                            <!-- <button class="update-btn btn orange"><i class="fa fa-pencil-square-o"></i> Update Meal</button>
+                            <button class="delete-btn btn red"><i class="fa fa-remove"></i> Delete Meal</button> -->
                             <button class="back-btn btn grey pull-right"><i class="fa fa-chevron-circle-left"></i> Back</button>
                     </div>
                 </form>
             </div>
         </div>
+
+        <!--Calarie Count-->
+        <h3 class="center-align">Total Calaries :<span class="total-calories">0</span></h3>
+
+        <!--Item list-->
+        <ul class="collection" id="item-list">
+            <li class="collection-item" id="item-0">
+                <strong>Steak Dinner :</strong> <em>1200 Calaries</em>
+                <a href="#" class="secondary-content"><i class="fa fa-pencil"></i></a>
+            </li>
+            <li class="collection-item" id="item-0">
+                    <strong>Cokkie :</strong> <em>400 Calaries</em>
+                    <a href="#" class="secondary-content"><i class="fa fa-pencil"></i></a>
+                </li>
+                <li class="collection-item" id="item-0">
+                        <strong>Eggs :</strong> <em>200 Calaries</em>
+                        <a href="#" class="secondary-content"><i class="fa fa-pencil"></i></a>
+                    </li>
+        </ul>
+
     </div>
     
     <script
