@@ -25,20 +25,50 @@ const ItemCtr=(function(){
         getItems:function(){
             return data.items;
         },
+        addItem:function(){
+            console.log(name,calaries);
+        },
+        getItems:function(){
+            return data.item;
+        },
+        addItem:function(){
+            let ID;
+            //create id
+            if(data.item.length>0){
+                ID=data.item[data.item.length-1].id+1
+            } else{
+                ID=0
+            }
+
+            //calaries to numbrt
+            calaries =parseInt(calaries);
+
+            //create new item
+            newItem=new Item(ID,name,calaries);
+
+            //add to items array
+            data.items.push(newItem);
+            return newItem;
+        },
         logData:function(){
             return data;
         }
     }
+
 })();
 
 //ui Controller
 const UiCtrl=(function(){
     const UiSelectors= {
-        itemlist:'#item-list'
+        itemlist:'#item-list',
+        addbtn:'.add-btn',
+        itemNameInput :'#item-name',
+        itemCalariesInput:'#item-calaries'
     }
     //pubic method
     return {
-        populateItemist:function(items){
+        
+        populateItemist:function(items){ 
             let html= '';
             
             items.forEach(function(item){
@@ -50,6 +80,16 @@ const UiCtrl=(function(){
 
             //insert list items
             document.querySelector(UiSelectors.itemlist).innerHTML=html; 
+        },
+        getItemInput:function(){
+            return {
+                name:document.querySelector(UiSelectors.itemNameInput).value,
+                calaries:document.querySelector(UiSelectors.itemCalariesInput).value
+            }
+        },
+
+        getSelectors:function(){
+             return UiSelectors;
         }
     }
 
@@ -57,6 +97,24 @@ const UiCtrl=(function(){
 
 //app controller
 const App=(function(ItemCtr,UiCtrl){
+    //load event listners
+    const loadEventlisteners =function(){
+        //get ui select ors
+        const UiSelectors =UiCtrl.getSelectors();
+
+        //add item event
+        document.querySelector(UiSelectors.addbtn).addEventListener('click ',itemAddSumbit);
+    }
+    //add item submit
+    const itemAddSumbit=function(e){
+        //get form input ui controller
+        const input=UiCtrl.getItemInput();
+        if(input.name!==null && input.calaries!= ''){
+            const newItem=ItemCtr.addItem(input.name,input.calaries);
+        }
+        e.preventDefault();
+
+    }
 
     return{
         init:function(){
@@ -65,6 +123,9 @@ const App=(function(ItemCtr,UiCtrl){
 
             //populate list with items
             UiCtrl.populateItemist(items); 
+
+            //load event listner
+            loadEventlisteners()
             
         }
     }
