@@ -25,17 +25,19 @@ const ItemCtr=(function(){
         getItems:function(){
             return data.items;
         },
-        addItem:function(){
-            console.log(name,calaries);
-        },
-        getItems:function(){
-            return data.item;
-        },
+        // addItem:function(){
+        //     console.log(name,calaries);
+        // },
+        
+        // getItems:function(){
+        //     return data.item;
+        // },
         addItem:function(){
             let ID;
             //create id
             if(data.item.length>0){
-                ID=data.item[data.item.length-1].id+1
+                ID=data.item[data.item.length-1].id+1;
+               
             } else{
                 ID=0
             }
@@ -54,6 +56,7 @@ const ItemCtr=(function(){
             return data;
         }
     }
+
 
 })();
 
@@ -87,6 +90,31 @@ const UiCtrl=(function(){
                 calaries:document.querySelector(UiSelectors.itemCalariesInput).value
             }
         },
+        addlistItem:function(item){
+            //show the ist
+            document.querySelector(UiSelectors.itemlist).style.display ='block';
+
+                document.querySelector(UiSelectors.itemCalariesInput).value
+                //create li element
+                const li =document.createElement('li');
+                //add class
+                li.className='collection-item';
+                // add id
+                li.id=`item-${item.id}`;
+                //add html
+                li.innerHTML =`</strong> <em>${item.name}</em>
+                <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>`
+
+                //insert item
+                document.querySelector(UiSelectors.itemlist).insertAdjacentElement('beforeend',li);
+        },
+        clearInput:function(){
+            document.querySelector(UiSelectors.itemNameInput).value='';
+            document.querySelector(UiSelectors.itemCalariesInput).value='';
+        },
+        hidelist:function(){
+            document.querySelector(UiSelectors.itemlist).style.display='none';
+        },
 
         getSelectors:function(){
              return UiSelectors;
@@ -112,17 +140,29 @@ const App=(function(ItemCtr,UiCtrl){
         if(input.name!==null && input.calaries!= ''){
             const newItem=ItemCtr.addItem(input.name,input.calaries);
         }
+         //add item to ui
+         UICtrl.addlistItem(newItem);
+
         e.preventDefault();
 
     }
 
     return{
         init:function(){
+            
             //fetch items from data structure
             const items =ItemCtr.getItems();
 
-            //populate list with items
-            UiCtrl.populateItemist(items); 
+            //check if any items
+            if(items.length ===0){
+                UiCtrl.hidelist();
+                console.log("hashika")
+            }else{
+                //populate list with items
+               UiCtrl.populateItemist(items); 
+            }
+
+            
 
             //load event listner
             loadEventlisteners()
